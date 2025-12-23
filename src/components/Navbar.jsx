@@ -6,7 +6,6 @@ export default function Navbar() {
   return (
     <Nav>
       <div className="title">
-        <h4>Hi Kishan,</h4>
         <h1>
           Welcome to <span>MY TAXI DASHBOARD</span>
         </h1>
@@ -24,67 +23,66 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
   width: 100%;
   gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #1e293b;
 
   /* ---------- TITLE ---------- */
   .title {
-    h4 {
-      font-weight: 400;
-      color: #aaa;
-      margin-bottom: 0.2rem;
-    }
+    max-width: 70%; /* 🔥 prevents clash */
 
     h1 {
       font-size: 1.5rem;
+      color: #e5e7eb;
+      line-height: 1.3;
 
       span {
-        display: inline-block;
         margin-left: 0.4rem;
-        color: #ffc107;
+        color: #facc15;
         font-family: "Permanent Marker", cursive;
-        letter-spacing: 0.15rem;
+        letter-spacing: 0.12rem;
+        white-space: nowrap;
       }
     }
   }
 
   /* ---------- SEARCH BAR ---------- */
   .search {
-    background-color: #212121;
+    background: linear-gradient(180deg, #0f172a, #020617);
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.55rem 0.9rem;
-    border-radius: 0.8rem;
-    transition: background 0.3s ease;
+    padding: 0.6rem 1rem;
+    border-radius: 0.9rem;
+    border: 1px solid #1e293b;
+    transition: all 0.3s ease;
+
+    flex-shrink: 0; /* 🔥 MOST IMPORTANT FIX */
 
     &:focus-within {
-      background-color: #2a2a2a;
+      border-color: #facc15;
+      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.4);
     }
 
     svg {
-      color: #ffc107;
+      color: #facc15;
       font-size: 1.2rem;
-      flex-shrink: 0;
     }
 
     input {
-      width: 160px; /* 🔥 main fix */
+      width: 160px;
       background: transparent;
       border: none;
-      color: #ffc107;
+      color: #e5e7eb;
       font-size: 0.9rem;
-      letter-spacing: 0.1rem;
-      font-family: "Permanent Marker", cursive;
 
       &:focus {
         outline: none;
       }
 
       &::placeholder {
-        color: #ffc107;
-        opacity: 0.8;
+        color: #9ca3af;
       }
     }
   }
@@ -92,12 +90,15 @@ const Nav = styled.nav`
   /* ---------- RESPONSIVE ---------- */
   @media screen and (max-width: 768px) {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+
+    .title {
+      max-width: 100%;
+    }
 
     .title h1 span {
       display: block;
       margin: 0.4rem 0 0;
-      letter-spacing: 0.1rem;
     }
 
     .search {
@@ -106,7 +107,6 @@ const Nav = styled.nav`
 
     .search input {
       width: 100%;
-      letter-spacing: 0.08rem;
     }
   }
 `;

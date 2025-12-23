@@ -5,56 +5,67 @@ import avatarImage from "../assets/avatarImage.jpeg";
 import { cardStyles } from "./ReusableStyles";
 
 export default function Transfers() {
-  const transactions = [
+  const trips = [
     {
       image: avatarImage,
-      name: "From Kishan Sheth",
+      name: "Rider: Kishan Sheth",
       time: "Today, 16:36",
-      amount: "+$50",
+      amount: "₹450",
+      status: "Completed",
     },
     {
       image: avatarImage,
-      name: "To Lauras Santos",
+      name: "Rider: Lauras Santos",
       time: "Today, 08:49",
-      amount: "-$25",
+      amount: "₹320",
+      status: "Completed",
     },
     {
       image: avatarImage,
-      name: "From Jadon S.",
+      name: "Rider: Jadon S.",
       time: "Yesterday, 14:36",
-      amount: "+$150",
+      amount: "₹780",
+      status: "Cancelled",
     },
   ];
 
   return (
     <Section>
       <div className="title">
-        <h2>Your Transfers</h2>
+        <h2>Recent Trips</h2>
       </div>
 
       <div className="transactions">
-        {transactions.map((transaction, index) => (
+        {trips.map((trip, index) => (
           <div className="transaction" key={index}>
             <div className="transaction__title">
               <div className="transaction__title__image">
-                <img src={transaction.image} alt="user avatar" />
+                <img src={trip.image} alt="rider avatar" />
               </div>
               <div className="transaction__title__details">
-                <h3>{transaction.name}</h3>
-                <h5>{transaction.time}</h5>
+                <h3>{trip.name}</h3>
+                <h5>{trip.time}</h5>
+                <span
+                  className={
+                    trip.status === "Completed"
+                      ? "status completed"
+                      : "status cancelled"
+                  }
+                >
+                  {trip.status}
+                </span>
               </div>
             </div>
 
             <div className="transaction__amount">
-              <span>{transaction.amount}</span>
+              <span>{trip.amount}</span>
             </div>
           </div>
         ))}
       </div>
 
-      {/* FIXED: button instead of invalid anchor */}
       <button className="view">
-        View all <HiArrowNarrowRight />
+        View all trips <HiArrowNarrowRight />
       </button>
     </Section>
   );
@@ -68,9 +79,9 @@ const Section = styled.section`
 
   .title {
     h2 {
-      color: #ffc107;
-      font-family: "Permanent Marker", cursive;
-      letter-spacing: 0.3rem;
+      color: #facc15;
+      font-weight: 600;
+      letter-spacing: 0.1rem;
     }
   }
 
@@ -93,22 +104,48 @@ const Section = styled.section`
           height: 2.5rem;
           border-radius: 3rem;
         }
+
+        &__details {
+          h3 {
+            color: white;
+            font-size: 14px;
+          }
+
+          h5 {
+            font-size: 12px;
+            color: #9ca3af;
+          }
+
+          .status {
+            font-size: 11px;
+          }
+
+          .completed {
+            color: #22c55e;
+          }
+
+          .cancelled {
+            color: #ef4444;
+          }
+        }
       }
 
       &__amount {
-        background-color: #d7e41e1d;
-        padding: 0.2rem 0.5rem;
-        width: 4rem;
+        background-color: #facc1520;
+        padding: 0.2rem 0.6rem;
+        width: 4.5rem;
         border-radius: 1rem;
         text-align: center;
         transition: 0.3s ease-in-out;
 
         span {
-          color: #ffc107;
+          color: #facc15;
+          font-weight: 600;
         }
 
         &:hover {
-          background-color: #ffc107;
+          background-color: #facc15;
+
           span {
             color: black;
           }
@@ -117,7 +154,6 @@ const Section = styled.section`
     }
   }
 
-  /* Button styled like link */
   .view {
     width: 100%;
     display: flex;
@@ -125,11 +161,10 @@ const Section = styled.section`
     align-items: center;
     gap: 0.5rem;
     margin-top: 1rem;
-
     background: none;
     border: none;
-    color: #ffc107;
-    font-weight: bold;
+    color: #facc15;
+    font-weight: 600;
     cursor: pointer;
 
     svg {

@@ -7,347 +7,150 @@ import { GiTwirlCenter } from "react-icons/gi";
 import { BsFillChatTextFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { VscChromeClose } from "react-icons/vsc";
 import scrollreveal from "scrollreveal";
+
 export default function Sidebar() {
-  const [currentLink, setCurrentLink] = useState(1);
-  const [navbarState, setNavbarState] = useState(false);
-  const html = document.querySelector("html");
-  html.addEventListener("click", () => setNavbarState(false));
+  const [active, setActive] = useState(1);
 
   useEffect(() => {
     const sr = scrollreveal({
       origin: "left",
-      distance: "80px",
+      distance: "60px",
       duration: 1000,
       reset: false,
     });
 
-    sr.reveal(
-      `
-          .brand,
-          .links>ul>li:nth-of-type(1),
-      .links>ul>li:nth-of-type(2),
-      .links>ul>li:nth-of-type(3),
-      .links>ul>li:nth-of-type(4),
-      .links>ul>li:nth-of-type(5),
-      .links>ul>li:nth-of-type(6),
-      .logout
-      `,
-      {
-        opacity: 0,
-        interval: 300,
-      }
-    );
+    sr.reveal(".brand, .links li, .logout", {
+      opacity: 0,
+      interval: 150,
+    });
   }, []);
 
   return (
-    <>
-      <Section>
-        <div className="top">
-          <div className="brand">
-            <FaTaxi />
-            <span>MY TAXI</span>
-          </div>
-          <div className="toggle">
-            {navbarState ? (
-              <VscChromeClose onClick={() => setNavbarState(false)} />
-            ) : (
-              <GiHamburgerMenu
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setNavbarState(true);
-                }}
-              />
-            )}
-          </div>
-          <div className="links">
-            <ul>
-              <li
-                className={currentLink === 1 ? "active" : "none"}
-                onClick={() => setCurrentLink(1)}
-              >
-                <a href="#">
-                  <MdSpaceDashboard />
-                  <span> Dashboard</span>
-                </a>
-              </li>
-              <li
-                className={currentLink === 2 ? "active" : "none"}
-                onClick={() => setCurrentLink(2)}
-              >
-                <a href="#">
-                  <RiDashboard2Fill />
-                  <span> Riders</span>
-                </a>
-              </li>
-              <li
-                className={currentLink === 3 ? "active" : "none"}
-                onClick={() => setCurrentLink(3)}
-              >
-                <a href="#">
-                  <FaAddressCard />
-                  <span> Payment Details</span>
-                </a>
-              </li>
-              <li
-                className={currentLink === 4 ? "active" : "none"}
-                onClick={() => setCurrentLink(4)}
-              >
-                <a href="#">
-                  <GiTwirlCenter />
-                  <span> Learning Center</span>
-                </a>
-              </li>
-              <li
-                className={currentLink === 5 ? "active" : "none"}
-                onClick={() => setCurrentLink(5)}
-              >
-                <a href="#">
-                  <BsFillChatTextFill />
-                  <span> FAQs</span>
-                </a>
-              </li>
-              <li
-                className={currentLink === 6 ? "active" : "none"}
-                onClick={() => setCurrentLink(6)}
-              >
-                <a href="#">
-                  <IoSettings />
-                  <span> Settings</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+    <Section>
+      <div className="top">
+        <div className="brand">
+          <FaTaxi />
+          <span>MY TAXI</span>
         </div>
-        <div className="logout">
-          <a href="#">
-            <FiLogOut />
-            <span className="logout">Logout</span>
-          </a>
-        </div>
-      </Section>
-      <ResponsiveNav state={navbarState} className={navbarState ? "show" : ""}>
-        <div className="responsive__links">
-          <ul>
-            <li
-              className={currentLink === 1 ? "active" : "none"}
-              onClick={() => setCurrentLink(1)}
-            >
-              <a href="#">
-                <MdSpaceDashboard />
-                <span> Dashboard</span>
-              </a>
-            </li>
-            <li
-              className={currentLink === 2 ? "active" : "none"}
-              onClick={() => setCurrentLink(2)}
-            >
-              <a href="#">
-                <RiDashboard2Fill />
-                <span> Riders</span>
-              </a>
-            </li>
-            <li
-              className={currentLink === 3 ? "active" : "none"}
-              onClick={() => setCurrentLink(3)}
-            >
-              <a href="#">
-                <FaAddressCard />
-                <span> Payment Details</span>
-              </a>
-            </li>
-            <li
-              className={currentLink === 4 ? "active" : "none"}
-              onClick={() => setCurrentLink(4)}
-            >
-              <a href="#">
-                <GiTwirlCenter />
-                <span> Learning Center</span>
-              </a>
-            </li>
-            <li
-              className={currentLink === 5 ? "active" : "none"}
-              onClick={() => setCurrentLink(5)}
-            >
-              <a href="#">
-                <BsFillChatTextFill />
-                <span> FAQs</span>
-              </a>
-            </li>
-            <li
-              className={currentLink === 6 ? "active" : "none"}
-              onClick={() => setCurrentLink(6)}
-            >
-              <a href="#">
-                <IoSettings />
-                <span> Settings</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </ResponsiveNav>
-    </>
+
+        <ul className="links">
+          <li className={active === 1 ? "active" : ""} onClick={() => setActive(1)}>
+            <MdSpaceDashboard />
+            <span>Dashboard</span>
+          </li>
+          <li className={active === 2 ? "active" : ""} onClick={() => setActive(2)}>
+            <RiDashboard2Fill />
+            <span>Riders</span>
+          </li>
+          <li className={active === 3 ? "active" : ""} onClick={() => setActive(3)}>
+            <FaAddressCard />
+            <span>Payments</span>
+          </li>
+          <li className={active === 4 ? "active" : ""} onClick={() => setActive(4)}>
+            <GiTwirlCenter />
+            <span>Learning</span>
+          </li>
+          <li className={active === 5 ? "active" : ""} onClick={() => setActive(5)}>
+            <BsFillChatTextFill />
+            <span>FAQs</span>
+          </li>
+          <li className={active === 6 ? "active" : ""} onClick={() => setActive(6)}>
+            <IoSettings />
+            <span>Settings</span>
+          </li>
+        </ul>
+      </div>
+
+      <div className="logout">
+        <FiLogOut />
+        <span>Logout</span>
+      </div>
+    </Section>
   );
 }
-const Section = styled.section`
-  position: fixed;
-  left: 0;
-  background-color: #212121;
-  height: 100vh;
-  width: 18vw;
+
+const Section = styled.aside`
+  width: 260px;              /* 🔥 FIXED WIDTH */
+  flex-shrink: 0;            /* 🔥 NEVER SHRINK */
+  min-height: 100vh;
+  background: linear-gradient(180deg, #020617, #0b1220);
+  border-right: 1px solid #1e293b;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
   padding: 2rem 0;
-  gap: 2rem;
-  .top {
+
+  position: sticky;          /* 🔥 FLEX-SAFE (not fixed) */
+  top: 0;
+
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+
+    svg {
+      color: #facc15;
+      font-size: 2rem;
+    }
+
+    span {
+      color: #facc15;
+      font-size: 1.6rem;
+      font-family: "Permanent Marker", cursive;
+    }
+  }
+
+  .links {
+    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    width: 100%;
+    gap: 0.4rem;
+    padding: 0 1rem;
 
-    .toggle {
-      display: none;
-    }
-    .brand {
-      width: 100%;
+    li {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
+      padding: 0.7rem 1rem;
+      border-radius: 0.8rem;
+      cursor: pointer;
+      color: #e5e7eb;
+      transition: all 0.3s ease;
+
       svg {
-        color: #ffc107;
-        font-size: 2rem;
+        font-size: 1.2rem;
       }
-      span {
-        font-size: 2rem;
-        color: #ffc107;
-        font-family: "Permanent Marker", cursive;
+
+      &:hover {
+        background: rgba(250, 204, 21, 0.15);
       }
     }
-    .links {
-      display: flex;
-      justify-content: center;
-      ul {
-        list-style-type: none;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        li {
-          padding: 0.6rem 1rem;
-          border-radius: 0.6rem;
-          &:hover {
-            background-color: #ffc107;
-            a {
-              color: black;
-            }
-          }
-          a {
-            text-decoration: none;
-            display: flex;
-            gap: 1rem;
-            color: white;
-          }
-        }
-        .active {
-          background-color: #ffc107;
-          a {
-            color: black;
-          }
-        }
-      }
+
+    .active {
+      background: rgba(250, 204, 21, 0.25);
+      box-shadow: inset 3px 0 0 #facc15;
     }
   }
 
   .logout {
-    padding: 0.3rem 1rem;
-    border-radius: 0.6rem;
-    &:hover {
-      background-color: #da0037;
-    }
-    a {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      color: white;
-    }
-  }
-  @media screen and (min-width: 280px) and (max-width: 1080px) {
-    position: initial;
-    width: 100%;
-    height: max-content;
-    padding: 1rem;
-    .top {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1rem;
-      .toggle {
-        display: block;
-        color: white;
-        z-index: 99;
-        svg {
-          font-size: 1.4rem;
-        }
-      }
-      .brand {
-        gap: 1rem;
-        justify-content: flex-start;
-      }
-    }
-    .top > .links,
-    .logout {
-      display: none;
-    }
-  }
-`;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1.5rem;
+    color: #ef4444;
+    cursor: pointer;
 
-const ResponsiveNav = styled.div`
-  position: fixed;
-  right: -10vw;
-  top: 0;
-  z-index: 10;
-  background-color: black;
-  height: 100vh;
-  width: ${({ state }) => (state ? "60%" : "0%")};
-  transition: 0.4s ease-in-out;
-  display: flex;
-  opacity: 0;
-  visibility: hidden;
-  padding: 1rem;
-  .responsive__links {
-    ul {
-      list-style-type: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 3rem;
-      li {
-        padding: 0.6rem 1rem;
-        border-radius: 0.6rem;
-        &:hover {
-          background-color: #ffc107;
-          a {
-            color: black;
-          }
-        }
-        a {
-          text-decoration: none;
-          display: flex;
-          gap: 1rem;
-          color: white;
-        }
-      }
-      .active {
-        background-color: #ffc107;
-        a {
-          color: black;
-        }
-      }
+    &:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-radius: 0.8rem;
     }
+  }
+
+  @media (max-width: 1080px) {
+    display: none; /* mobile handled separately if needed */
   }
 `;
